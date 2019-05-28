@@ -1,0 +1,42 @@
+language: python
+
+dist: xenial
+
+python:
+  - "3.6"
+  - "3.7"
+
+before_install:
+  - export HBASE_PYTHON_KAFKA_HOME="/home/travis/build/${TRAVIS_REPO_SLUG}"
+  - export PATH=$PATH:${HBASE_PYTHON_KAFKA_HOME}/scripts
+
+
+install:
+
+  # install Hbase
+  - install_hbase
+
+  # install Kafka
+  - install_kafka
+
+  # Python deps
+  - pip install --upgrade pip setuptools wheel
+  - pip install -r requirements.txt
+
+  # start Hbase
+  - start_hbase
+
+  # start Kafka
+  - start_kafka
+
+
+script:
+
+  # run python programs
+  - cd ${HBASE_PYTHON_KAFKA_HOME}/python
+  # write table into hbase
+  - python write2hbase.py
+  # start a producer
+  - python producer.py
+  # start a consumer
+  - python consumer.py
