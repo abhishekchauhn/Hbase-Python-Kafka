@@ -23,4 +23,6 @@ wget http://www-us.apache.org/dist/hbase/${HBASE_VERSION}/hbase-${HBASE_VERSION}
 tar -zxvf hbase-${HBASE_VERSION}-bin.tar.gz
 rm hbase-${HBASE_VERSION}-bin.tar.gz
 
+cp conf/hbase-site.xml hbase-${HBASE_VERSION}/conf/
+
 export HBASE_HOME=$( pwd )/hbase-${HBASE_VERSION}
